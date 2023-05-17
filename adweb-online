@@ -1,0 +1,124 @@
+commit afb68c693f8a4e85bc89ec3859e1f2efde4e5eae
+Author: Valentina Roco <123381447+Valentriniti@users.noreply.github.com>
+Date:   Fri Apr 21 12:41:49 2023 -0400
+
+    Ina (#11)
+    agrega vista HomeView.vue  (#17)
+    
+    * agrega adminview y admintable
+    
+    * implementa router y router links
+    
+    * agrega link a base de datos e instancia en componente admintable
+    
+    * rellena admintable con info api
+
+diff --git a/src/components/AdminTable.vue b/src/components/AdminTable.vue
+index d580740..43c582a 100644
+--- a/src/components/AdminTable.vue
++++ b/src/components/AdminTable.vue
+@@ -31,21 +31,21 @@
+               <th scope="col">Eliminar</th>
+           </tr>
+       </thead>
+-      <TBody>
+-          <tr>
+-              <td>1</td>
+-              <td>2</td>
+-              <td>3</td>
+-              <td>4</td>
+-              <td>5</td>
+-              <td>6</td>
+-              <td>7</td>
+-              <td>8</td>
+-              <td>9</td>
++      <tbody >
++          <tr v-for="curso in cursos" :key="curso.nombre">
++              <td>{{ curso.id }}</td>
++              <td>{{ curso.nombre }}</td>
++              <td>{{ curso.estado }}</td>
++              <td>{{ curso.precio }}</td>
++              <td>{{ curso.duracion }}</td>
++              <td>{{ curso.descripcion }}</td>
++              <td>{{ curso.cupos }}</td>
++              <td>{{ curso.inscritos}}</td>
++              <td>{{ curso.img }}</td>
+               <td><button class="btn btn-modificar" id="modificar" type="button" data-bs-toggle="modal" data-bs-target="#editModal">&#9998;</button></td>
+               <td><button class="btn btn-modificar" id="borrar" type="button" data-bs-toggle="modal" data-bs-target="#deleteModal">&#128465;</button></td>
+           </tr>
+-      </TBody>
++      </tbody>
+       </table>
+   </div>
+   </div>
+@@ -144,15 +144,19 @@
+       </div>
+     </div>
+   </div>
+-  <button @click="extraerData">click</button>
+-  <button @click="mostrarCurso">click</button>
++<!--   <button @click="extraerData">click</button>
++  <button @click="mostrarCurso">click</button> -->
+   </template>
+     
+     <script>
++/*     import {mapState} from 'vuex'; */
+     import { collection, getDocs } from "firebase/firestore";
+     import { db } from "@/auth/auth.service";
+     export default {
+       name: 'AdminTable',
++      mounted(){
++        this.extraerData()
++      },
+       props: { 
+       },
+       data() {
+@@ -160,6 +164,10 @@
+           cursos: [],
+         }
+       },
++      computed: {
++/*         ...mapState(['cursos']) */
++      },
++
+       methods: {
+       async extraerData() {
+ 
+diff --git a/src/store/index.js b/src/store/index.js
+index 7f5b89c..24cf765 100644
+--- a/src/store/index.js
++++ b/src/store/index.js
+@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
+    * agrega vista HomeView.vue
+
+diff --git a/src/components/NavBar.vue b/src/components/NavBar.vue
+index 4cc0008..d2f4d3d 100644
+--- a/src/components/NavBar.vue
++++ b/src/components/NavBar.vue
+@@ -10,8 +10,8 @@
+             <div class="d-flex ms-auto me-3">
+                 <nav>
+                     <ul id="list-contenedor" class="d-flex justify-content-around align-items-center">
+-                        <router-link class="link-nav px-3" to="">Inicio</router-link>
+-                        <router-link class="link-nav px-3" to="/HomeView">Cursos</router-link>
++                        <router-link class="link-nav px-3" to="/HomeView">Inicio</router-link>
++                        <router-link class="link-nav px-3" to="/CoursesView">Cursos</router-link>
+                         <router-link class="link-nav px-3" to="/AdminView">Administrador</router-link>
+                         <router-link class="link-nav px-3" to="/">Login</router-link>
+                         <button type="button" class="btn-logout" data-bs-toggle="modal" data-bs-target="#exampleModal">
+diff --git a/src/router/index.js b/src/router/index.js
+index 75f3e4e..02a4171 100644
+--- a/src/router/index.js
++++ b/src/router/index.js
+@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
+ import HomeView from '../views/HomeView.vue'
+ import AdminView from '../views/AdminView.vue'
+ import LoginView from '../views/LoginView.vue'
++import CoursesView from '../views/CoursesView.vue'
+ 
+ export default createStore({
+   state: {
++    cursos: []
+   },
+   getters: {
+   },
