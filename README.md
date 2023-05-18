@@ -6,7 +6,7 @@ Para la ejecución del proyecto se debe abrir la consola y escribir los siguient
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compila y recarga en caliente para desarrollo
 ```
 npm run serve
 ```
