@@ -1,7 +1,7 @@
 # portafolio front-end 
+Para la ejecución del proyecto se debe abrir la consola y escribir los siguientes comandos
 
-
-## Project setup
+## Configuración del proyecto
 ```
 npm install
 ```
@@ -11,10 +11,10 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compila y minifica para producción
 ```
 npm run build
 ```
 
-### Customize configuration
+### Personalizar configuración
 See [Configuration Reference](https://cli.vuejs.org/config/).
